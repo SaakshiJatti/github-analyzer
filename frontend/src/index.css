@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ── DARK THEME (default) ──────────────────────────────────────────────────── */
+:root {
+  --bg:         #060e17;
+  --bg2:        #091524;
+  --bg3:        #0d1f30;
+  --panel:      #0d1f30;
+  --border:     #1e6090;
+  --border2:    #174d73;
+  --cyan:       #18e8ff;
+  --cyan2:      #00c4e0;
+  --cyan-dim:   #0a4a60;
+  --green:      #0dff9a;
+  --green-dim:  #004d30;
+  --orange:     #ff7043;
+  --yellow:     #ffe066;
+  --red:        #ff3366;
+  --text:       #cce0f0;
+  --text2:      #7fb3ce;
+  --white:      #f5faff;
+  --mono:       'Share Tech Mono', monospace;
+  --sans:       'Inter', sans-serif;
+  --display:    'Orbitron', monospace;
+}
+
+/* ── LIGHT THEME ───────────────────────────────────────────────────────────── */
+.light {
+  --bg:         #f0f6ff;
+  --bg2:        #deeaf8;
+  --bg3:        #ccddf0;
+  --panel:      #ffffff;
+  --border:     #3a80b8;
+  --border2:    #5b9fd4;
+  --cyan:       #0066cc;
+  --cyan2:      #0055aa;
+  --cyan-dim:   #aaccee;
+  --green:      #007744;
+  --green-dim:  #cceedc;
+  --orange:     #cc4400;
+  --yellow:     #886600;
+  --red:        #cc0033;
+  --text:       #0a1a2e;
+  --text2:      #1a4060;
+  --white:      #050d18;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scanlines — dark only */
+body:not(.light)::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Grid bg */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(24,232,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24,232,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.light body::after {
+  background-image:
+    linear-gradient(rgba(0,102,204,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,102,204,0.06) 1px, transparent 1px);
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── TYPOGRAPHY SCALE ──────────────────────────────────────────────────────── */
+
+/* Display — Orbitron for titles only */
+.font-display { font-family: var(--display); }
+
+/* Mono — Share Tech Mono for labels/codes */
+.font-mono { font-family: var(--mono); }
+
+/* Body — Inter for readable prose */
+.font-sans { font-family: var(--sans); }
+
+/* ── SCROLLBAR ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
+
+/* ── ANIMATIONS ─────────────────────────────────────────────────────────────── */
+@keyframes fadeIn   { from { opacity: 0 }              to { opacity: 1 } }
+@keyframes slideUp  { from { opacity: 0; transform: translateY(20px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes pulse    { 0%,100% { opacity: 1 } 50% { opacity: 0.4 } }
+@keyframes blink    { 50% { opacity: 0 } }
+@keyframes spin     { to { transform: rotate(360deg) } }
+@keyframes glow     {
+  0%,100% { text-shadow: 0 0 20px rgba(24,232,255,0.4) }
+  50%      { text-shadow: 0 0 40px rgba(24,232,255,0.8), 0 0 80px rgba(24,232,255,0.2) }
+}
+
+/* ── PRINT ──────────────────────────────────────────────────────────────────── */
+@media print {
+  aside          { display: none !important; }
+  main           { margin-left: 0 !important; }
+  body::before,
+  body::after    { display: none !important; }
+  body           { background: #fff !important; color: #111 !important; font-size: 13px; }
+  [style*="var(--panel)"]  { background: #f8f8f8 !important; border: 1px solid #ccc !important; }
+  [style*="var(--cyan)"]   { color: #0055aa !important; }
+  [style*="var(--green)"]  { color: #006633 !important; }
+  [style*="var(--yellow)"] { color: #886600 !important; }
+  [style*="var(--orange)"] { color: #cc4400 !important; }
+}
